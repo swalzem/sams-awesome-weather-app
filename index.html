@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mt-2 mb-2 quick-cities">
+        <div class="col text-left quick-cities-cities">
+          <span>
+            San Francisco
+          </span>
+          <span>
+            New York
+          </span>
+          <span>
+            London
+          </span>
+          <span>
+            Paris
+          </span>
+        </div>
+        <div class="col text-right quick-cities-extra">
+          <span>
+            Hottest
+          </span>
+          <span>
+            Coldest
+          </span>
+          <span>
+            Random
+          </span>
+        </div>
+      </div>
+      <div class="form-group row" id="city-search-input">
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            id="input-city"
+            placeholder="City"
+          />
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary" id="btn-search">
+            Search
+          </button>
+          <button type="button" class="btn btn-success" id="btn-current">
+            Current
+          </button>
+        </div>
+      </div>
+      <div class="row celsius-fahrenheit">
+        <div class="col text-right">
+          <a href="#" id="celsius"> C° </a>|
+          <a href="#" id="fahrenheit"> F°</a>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6 main-weather-display">
+          <div class="row ml-1">
+            <div class="col-3 justify-content-center main-weather-icon">
+              <i class="fas fa-cloud-showers-heavy fa-4x"></i>
+            </div>
+            <div class="col-3 main-temperature">
+              <div class="row ml-4">
+                <h2 class="display-4" id="main-temp">
+                  <span id="main-temp-value">14</span
+                  ><span id="main-temp-scale">°C</span>
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div class="row ml-1 mt-3">
+            <strong><span id="weather-description">Rain</span></strong>
+          </div>
+          <div class="main-weather-details">
+            <div class="row ml-1">
+              <div class="col">
+                <div class="row" id="humidity">
+                  Humidity: 60%
+                </div>
+                <div class="row" id="wind">
+                  Wind: 5 km/h
+                </div>
+              </div>
+              <div class="col">
+                <div class="row ml-1" id="main-high">
+                  High: 16°C
+                </div>
+                <div class="row ml-1" id="main-low">
+                  Low: 9°C
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 d-flex align-items-start flex-column" id="city">
+          <div class="row mb-auto text-break">
+            <h1 class="display-4 ml-3" id="main-city-display">
+              Porto
+            </h1>
+          </div>
+          <div class="date-time ml-3">
+            <div class="row" id="current-date">
+              Saturday, March 21st, 2020
+            </div>
+            <div class="row" id="current-time">
+              18:25
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3 mx-1 forecast">
+        <div class="col day-1">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+        <div class="col day-2">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+        <div class="col day-3">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+        <div class="col day-4">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+        <div class="col day-5">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+        <div class="col day-6">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+        <div class="col day-7">
+          <div class="row justify-content-center forecast-day-of-the-week">
+            Sun
+          </div>
+          <div class="row mb-2 justify-content-center forecast-date">
+            22/03
+          </div>
+          <div class="row justify-content-center forecast-weather-icoon">
+            <i class="fas fa-cloud-showers-heavy"></i>
+          </div>
+          <div class="row mt-1 justify-content-center forecast-temperature">
+            13°C
+          </div>
+          <div class="row mt-1 justify-content-center forecast-high">
+            Hi: 12°C
+          </div>
+          <div class="row justify-content-center forecast-low">
+            Lo: 9°C
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/dff0ac1e2b.js"
+    crossorigin="anonymous"
+  ></script>
+  <script src="src/script.js"></script>
+</html>

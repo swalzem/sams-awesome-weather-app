@@ -1,0 +1,29 @@
+.container {
+  border: medium solid;
+  width: 600px;
+  margin: 50px auto;
+  border-radius: 4px;
+}
+.quick-cities span {
+  padding: 4px;
+  font-size: smaller;
+}
+.city-search-bar {
+  margin-top: 15px;
+}
+#city {
+  border-left: thin solid;
+}
+.main-weather-details,
+#current-date,
+#current-time {
+  font-size: 15px;
+}
+.forecast-date,
+.forecast-high,
+.forecast-low {
+  font-size: 12px;
+}
+.main-weather-display i {
+  font-size: 70px;
+}
