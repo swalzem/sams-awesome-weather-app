@@ -27,3 +27,8 @@
 .main-weather-display i {
   font-size: 70px;
 }
+.github-link {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+}
