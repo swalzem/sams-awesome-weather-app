@@ -1,29 +1,28 @@
-small {
-  display: block;
-  text-align: center;
+.main-temperature ul {
+  list-style-type: none;
   margin: 0;
-  padding: 0 0 10px 0;
+  padding: 0;
+  text-align: left;
+  line-height: 1;
 }
 .container {
   border: medium solid;
   width: 600px;
   margin: 40px auto 20px;
-  padding: 0;
+  padding: 1rem;
   border-radius: 4px;
 }
-.quick-cities span {
-  padding: 4px;
-  font-size: smaller;
+.credits {
+  display: block;
+  text-align: center;
+  margin: 0;
+  padding: 0 0 10px 0;
+}
+.main-temp {
+  font-size: 60px;
+  margin-bottom: 10px;
 }
 
-.celsius-fahrenheit,
-.forecast,
-#city-search-input {
-  margin: 1rem 0;
-}
-#city {
-  border-left: thin solid;
-}
 .main-weather-details,
 #current-date,
 #current-time {
@@ -34,6 +33,14 @@ small {
 .forecast-low {
   font-size: 12px;
 }
+.main-weather-display {
+  margin-bottom: 1rem;
+}
 .main-weather-display i {
   font-size: 70px;
+  display: block;
+  text-align: center;
+}
+#city {
+  border-left: thin solid;
 }
