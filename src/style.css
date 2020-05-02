@@ -8,14 +8,18 @@ small {
   border: medium solid;
   width: 600px;
   margin: 40px auto 20px;
+  padding: 0;
   border-radius: 4px;
 }
 .quick-cities span {
   padding: 4px;
   font-size: smaller;
 }
-.city-search-bar {
-  margin-top: 15px;
+
+.celsius-fahrenheit,
+.forecast,
+#city-search-input {
+  margin: 1rem 0;
 }
 #city {
   border-left: thin solid;
@@ -32,9 +36,4 @@ small {
 }
 .main-weather-display i {
   font-size: 70px;
-}
-.github-link {
-  display: block;
-  text-align: center;
-  font-size: 12px;
 }

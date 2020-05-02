@@ -14,35 +14,20 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
+  <!-- NOTES:
+    -Change rows into ul/li where possible
+    -Same with top row -- possible to eliminate spans and use horizontal UL?
+    -Use "wrapper" to include elements that I don't want to include in container, like credits
+    -Look up "clearfix" to align elements
+    -Check line heights
+    -CSS text transform capitalize
+    -make one function to display temperature info
+    -create new function (function formatDate(timestamp) -- see lesson 4 16:40) current date/time in search location, using new Date(xxxxxx *1000) for response.data.dt
+    -add 0s to hours and minutes if <10
+    -remove console logs
+  -->
   <body>
     <div class="container">
-      <div class="row mt-2 mb-2 quick-cities">
-        <div class="col text-left quick-cities-cities">
-          <span>
-            San Francisco
-          </span>
-          <span>
-            New York
-          </span>
-          <span>
-            London
-          </span>
-          <span>
-            Paris
-          </span>
-        </div>
-        <div class="col text-right quick-cities-extra">
-          <span>
-            Hottest
-          </span>
-          <span>
-            Coldest
-          </span>
-          <span>
-            Random
-          </span>
-        </div>
-      </div>
       <div class="form-group row" id="city-search-input">
         <div class="col-8">
           <input
@@ -52,7 +37,7 @@
             placeholder="City"
           />
         </div>
-        <div class="col">
+        <div class="col-4">
           <button type="button" class="btn btn-primary" id="btn-search">
             Search
           </button>
@@ -67,8 +52,8 @@
           <a href="#" id="fahrenheit"> F°</a>
         </div>
       </div>
-      <div class="row mb-3">
-        <div class="col-6 main-weather-display">
+      <div class="row main-weather-display">
+        <div class="col-6">
           <div class="row ml-1">
             <div class="col-3 justify-content-center main-weather-icon">
               <i class="fas fa-cloud-showers-heavy fa-4x"></i>
@@ -122,7 +107,7 @@
           </div>
         </div>
       </div>
-      <div class="row mb-3 mx-1 forecast">
+      <div class="row forecast">
         <div class="col day-1">
           <div class="row justify-content-center forecast-day-of-the-week">
             Sun
@@ -265,16 +250,13 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row github-link">
-      <p> -->
+
     <small>
       <a href="https://github.com/swalzem?tab=repositories" target="_blank"
         >Open-source code</a
       >
       by Samantha Walzem
     </small>
-    <!-- </p>
-    </div> -->
   </body>
   <script
     src="https://kit.fontawesome.com/dff0ac1e2b.js"
