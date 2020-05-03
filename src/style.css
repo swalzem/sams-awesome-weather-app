@@ -17,16 +17,7 @@
   color: white;
   border: none;
 }
-.btn-primary:active {
-  background: #fac7b8 !important;
-  outline: none;
-  box-shadow: none !important;
-}
-.btn-primary:active:focus {
-  background-color: #fac7b8 !important;
-  outline: none;
-  box-shadow: none !important;
-}
+
 .btn-success {
   background-color: #fad0c4;
   color: white;
@@ -90,7 +81,8 @@
 }
 #weather-description {
   display: block;
-  margin-left: 1.25rem;
+  text-align: center;
+  margin-left: 1rem;
   margin-top: 40px;
 }
 
