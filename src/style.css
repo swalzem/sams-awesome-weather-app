@@ -46,13 +46,19 @@
 
 .main-temp {
   font-size: 60px;
-  margin-bottom: 10px;
+  margin: 25px 0 10px;
+  line-height: 0;
 }
-
-.main-weather-details,
-#current-date,
-#current-time {
+.main-weather-details {
+  display: block;
+  margin: 65px 0 0 10px;
+}
+.date-time ul {
   font-size: 15px;
+  margin: 0;
+  line-height: 1.25;
+  list-style-type: none;
+  padding: 0;
 }
 
 .forecast-date,
@@ -85,7 +91,12 @@
   margin-left: 1rem;
   margin-top: 40px;
 }
-
+#main-city-display {
+  font-size: 60px;
+  font-weight: lighter;
+  margin: 25px 0 10px 10px;
+  line-height: 0;
+}
 #city {
   border-left: thin solid;
 }

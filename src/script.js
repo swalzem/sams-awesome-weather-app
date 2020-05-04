@@ -49,7 +49,7 @@ function showTemperature(response) {
   console.log(response);
   let temperature = Math.round(response.data.main.temp);
   let showTemp = document.querySelector("#main-temp-value");
-  showTemp.innerHTML = temperature;
+  showTemp.innerHTML = `${temperature}°C`;
   let description = document.querySelector("#weather-description");
   description.innerHTML = response.data.weather[0].main;
   let humidity = document.querySelector("#humidity");
@@ -79,7 +79,7 @@ function currentLocationTemperature() {
     console.log(response.data.name);
     let temperature = Math.round(response.data.main.temp);
     let showTemp = document.querySelector("#main-temp-value");
-    showTemp.innerHTML = temperature;
+    showTemp.innerHTML = `${temperature}°C`;
     let h1 = document.querySelector("h1");
     h1.innerHTML = response.data.name;
     let description = document.querySelector("#weather-description");
