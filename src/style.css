@@ -72,7 +72,7 @@
 }
 
 .main-weather-display i {
-  font-size: 85px;
+  font-size: 60px;
   padding-top: 60px;
   margin: 18px;
   line-height: 0;
@@ -94,8 +94,8 @@
 #main-city-display {
   font-size: 60px;
   font-weight: lighter;
-  margin: 25px 0 10px 10px;
-  line-height: 0;
+  margin: -6px 0 10px 10px;
+  line-height: 1;
 }
 #city {
   border-left: thin solid;
