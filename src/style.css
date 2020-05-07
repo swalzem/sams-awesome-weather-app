@@ -29,29 +29,26 @@
   border-width: thin;
   border-color: black;
 }
-.main-temperature ul {
+.main-weather-temperature ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   text-align: left;
   line-height: 1;
 }
-
+.main-temp {
+  font-size: 60px;
+  margin: 25px 0 10px;
+  line-height: 0;
+}
 .credits {
   display: block;
   text-align: center;
   margin: 0;
   padding: 0 0 10px 0;
 }
-
-.main-temp {
-  font-size: 60px;
-  margin: 25px 0 10px;
-  line-height: 0;
-}
 .main-weather-details {
-  display: block;
-  margin: 65px 0 0 10px;
+  margin: 65px 0 0;
 }
 .date-time ul {
   font-size: 15px;
@@ -67,15 +64,14 @@
   font-size: 12px;
 }
 
-.main-weather-display {
+.main-weather-overview {
   margin-bottom: 1rem;
 }
 
-.main-weather-display i {
-  font-size: 60px;
-  padding-top: 60px;
-  margin: 18px;
-  line-height: 0;
+.main-weather-overview i {
+  font-size: 80px;
+  display: block;
+  margin: 20px 0 0 40px;
 }
 
 .form-control {
@@ -85,11 +81,10 @@
   border-color: #ffd1ff;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #fad0c4;
 }
+
 #weather-description {
   display: block;
-  text-align: center;
-  margin-left: 1rem;
-  margin-top: 40px;
+  margin: 0 0 0 40px;
 }
 #main-city-display {
   font-size: 60px;

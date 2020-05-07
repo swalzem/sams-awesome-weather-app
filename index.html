@@ -15,8 +15,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <!-- NOTES:
-    -Change rows into ul/li where possible
-    -Same with top row -- possible to eliminate spans and use horizontal UL?
     -Use "wrapper" to include elements that I don't want to include in container, like credits
     -Look up "clearfix" to align elements
     -Check line heights
@@ -52,18 +50,20 @@
           <a href="#" id="fahrenheit"> F°</a>
         </div>
       </div>
-      <div class="row main-weather-display">
+      <div class="row main-weather-overview">
         <div class="col-6">
           <div class="row">
-            <div class="col">
-              <div class="row main-weather-icon">
+            <div
+              class="col d-flex align-items-start flex-column icon-description"
+            >
+              <div class="row mb-auto main-weather-icon">
                 <i class="fas fa-cloud-showers-heavy"></i>
               </div>
               <div class="row">
                 <strong id="weather-description">Rain</strong>
               </div>
             </div>
-            <div class="col main-temperature">
+            <div class="col main-weather-temperature">
               <div class="row main-temp">
                 <span id="main-temp-value"></span
                 ><span id="main-temp-scale"></span>
