@@ -46,7 +46,6 @@ function citySearch(event) {
 }
 
 function showTemperature(response) {
-  console.log(response);
   let temperature = Math.round(response.data.main.temp);
   let showTemp = document.querySelector("#main-temp-value");
   showTemp.innerHTML = `${temperature}°C`;
@@ -67,7 +66,6 @@ searchButton.addEventListener("click", citySearch);
 
 function currentLocationTemperature() {
   function locationSearch(position) {
-    console.log(position);
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     let apiKey = "c99a8d499a1f61b742240fa4afade60a";
@@ -76,7 +74,6 @@ function currentLocationTemperature() {
   }
 
   function showLocationTemperature(response) {
-    console.log(response.data.name);
     let temperature = Math.round(response.data.main.temp);
     let showTemp = document.querySelector("#main-temp-value");
     showTemp.innerHTML = `${temperature}°C`;
