@@ -62,7 +62,7 @@
 }
 
 .main-weather-overview {
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 .main-weather-overview i {
@@ -84,7 +84,12 @@
   font-weight: lighter;
   margin: -6px 0 10px 10px;
   line-height: 1;
+  text-transform: capitalize;
 }
 #city {
   border-left: thin solid;
+}
+
+#weather-description {
+  text-transform: capitalize;
 }
