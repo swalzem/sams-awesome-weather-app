@@ -45,6 +45,18 @@ function citySearch(event) {
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
 }
 
+function showPortoTemperature(event) {
+  event.preventDefault();
+  let h1 = document.querySelector("h1");
+  let city = "Porto";
+  h1.innerHTML = city;
+  let apiKey = "c99a8d499a1f61b742240fa4afade60a";
+  let apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
+}
+
+window.addEventListener("load", showPortoTemperature);
+
 function showTemperature(response) {
   let temperature = Math.round(response.data.main.temp);
   let showTemp = document.querySelector("#main-temp-value");
