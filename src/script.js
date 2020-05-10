@@ -1,6 +1,6 @@
 function showTemperature(response) {
   let city = document.querySelector("h1");
-  let temperature = Math.round(response.data.main.temp);
+  // let temperature = Math.round(response.data.main.temp);
   let showTemp = document.querySelector("#main-temp-value");
   let description = document.querySelector("#weather-description");
   let humidity = document.querySelector("#humidity");
@@ -10,9 +10,12 @@ function showTemperature(response) {
   let date = document.querySelector("#current-date");
   let time = document.querySelector("#current-time");
   let icon = document.querySelector("#icon");
+  let mainTempScale = document.querySelector("#main-temp-scale");
+
+  celsiusTemperature = Math.round(response.data.main.temp);
 
   city.innerHTML = response.data.name;
-  showTemp.innerHTML = `${temperature}°C`;
+  showTemp.innerHTML = celsiusTemperature;
   description.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
   wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
@@ -25,6 +28,7 @@ function showTemperature(response) {
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   icon.setAttribute("alt", response.data.weather[0].description);
+  mainTempScale.innerHTML = `°C`;
 }
 
 function currentLocationTemperature() {
@@ -100,23 +104,23 @@ function formatTime(timestamp) {
 function tempConvertCelsius(event) {
   event.preventDefault();
   let mainTempValue = document.querySelector("#main-temp-value");
-  let celsiusConvertedTemp = document.querySelector("#main-temp-value");
   let mainTempScale = document.querySelector("#main-temp-scale");
-  mainTempValue.innerHTML = Math.round(celsiusConvertedTemp.value, 14);
+  mainTempValue.innerHTML = Math.round(celsiusTemperature);
   mainTempScale.innerHTML = "°C";
 }
 
 function tempConvertFahrenheit(event) {
   event.preventDefault();
   let mainTempValue = document.querySelector("#main-temp-value");
-  let fahrenheitConvertedTemp = document.querySelector("#main-temp-value");
+  let fahrenheitConvertedTemp = (celsiusTemperature * 9) / 5 + 32;
   let mainTempScale = document.querySelector("#main-temp-scale");
-  mainTempValue.innerHTML =
-    Math.round((fahrenheitConvertedTemp.value, 14) / 5) * 9 + 32;
+  mainTempValue.innerHTML = Math.round(fahrenheitConvertedTemp);
   mainTempScale.innerHTML = "°F";
 }
 
 search("Porto");
+
+let celsiusTemperature = null;
 
 let searchButton = document.querySelector("#btn-search");
 searchButton.addEventListener("click", handleSubmit);
