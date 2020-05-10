@@ -1,39 +1,3 @@
-let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
-let year = now.getFullYear();
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[now.getMonth()];
-let date = now.getDate();
-let currentDate = document.querySelector("#current-date");
-currentDate.innerHTML = `${day}, ${month} ${date}, ${year}`;
-
-let hour = now.getHours();
-let minute = now.getMinutes();
-let currentTime = document.querySelector("#current-time");
-currentTime.innerHTML = `${hour}:${minute}`;
-
 function citySearch(event) {
   event.preventDefault();
   let h1 = document.querySelector("h1");
@@ -57,20 +21,70 @@ function showPortoTemperature(event) {
 
 window.addEventListener("load", showPortoTemperature);
 
+function formatDate(timestamp) {
+  let currentDate = new Date(timestamp);
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[currentDate.getDay()];
+  let month = months[currentDate.getMonth()];
+  let date = currentDate.getDate();
+  let year = currentDate.getFullYear();
+  return `Last updated:<br> ${day}, ${month} ${date}, ${year}`;
+}
+
+function formatTime(timestamp) {
+  let currentTime = new Date(timestamp);
+  let hours = currentTime.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = currentTime.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${hours}:${minutes}`;
+}
+
 function showTemperature(response) {
   let temperature = Math.round(response.data.main.temp);
   let showTemp = document.querySelector("#main-temp-value");
-  showTemp.innerHTML = `${temperature}°C`;
   let description = document.querySelector("#weather-description");
-  description.innerHTML = response.data.weather[0].description;
   let humidity = document.querySelector("#humidity");
-  humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
   let wind = document.querySelector("#wind");
-  wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
   let high = document.querySelector("#main-high");
-  high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
   let low = document.querySelector("#main-low");
+  let date = document.querySelector("#current-date");
+  let time = document.querySelector("#current-time");
+  showTemp.innerHTML = `${temperature}°C`;
+  description.innerHTML = response.data.weather[0].description;
+  humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
+  wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
+  high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
   low.innerHTML = `Low: ${Math.round(response.data.main.temp_min)}°C`;
+  date.innerHTML = formatDate(response.data.dt * 1000);
+  time.innerHTML = formatTime(response.data.dt * 1000);
 }
 
 let searchButton = document.querySelector("#btn-search");
@@ -88,19 +102,23 @@ function currentLocationTemperature() {
   function showLocationTemperature(response) {
     let temperature = Math.round(response.data.main.temp);
     let showTemp = document.querySelector("#main-temp-value");
-    showTemp.innerHTML = `${temperature}°C`;
     let h1 = document.querySelector("h1");
-    h1.innerHTML = response.data.name;
     let description = document.querySelector("#weather-description");
-    description.innerHTML = response.data.weather[0].main;
     let humidity = document.querySelector("#humidity");
-    humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
     let wind = document.querySelector("#wind");
-    wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
     let high = document.querySelector("#main-high");
-    high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
     let low = document.querySelector("#main-low");
+    let date = document.querySelector("#current-date");
+    let time = document.querySelector("#current-time");
+    showTemp.innerHTML = `${temperature}°C`;
+    h1.innerHTML = response.data.name;
+    description.innerHTML = response.data.weather[0].main;
+    humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
+    wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
+    high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
     low.innerHTML = `Low: ${Math.round(response.data.main.temp_min)}°C`;
+    date.innerHTML = formatDate(response.data.dt * 1000);
+    time.innerHTML = formatTime(response.data.dt * 1000);
   }
   navigator.geolocation.getCurrentPosition(locationSearch);
 }
