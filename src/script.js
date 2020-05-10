@@ -1,18 +1,5 @@
-window.addEventListener("load", showPortoTemperature);
-
-let searchButton = document.querySelector("#btn-search");
-searchButton.addEventListener("click", citySearch);
-
-let currentLocationButton = document.querySelector("#btn-current");
-currentLocationButton.addEventListener("click", currentLocationTemperature);
-
-let fahrenheitConvert = document.querySelector("#fahrenheit");
-fahrenheitConvert.addEventListener("click", tempConvertFahrenheit);
-
-let celsiusConvert = document.querySelector("#celsius");
-celsiusConvert.addEventListener("click", tempConvertCelsius);
-
 function showTemperature(response) {
+  let city = document.querySelector("h1");
   let temperature = Math.round(response.data.main.temp);
   let showTemp = document.querySelector("#main-temp-value");
   let description = document.querySelector("#weather-description");
@@ -24,6 +11,7 @@ function showTemperature(response) {
   let time = document.querySelector("#current-time");
   let icon = document.querySelector("#icon");
 
+  city.innerHTML = response.data.name;
   showTemp.innerHTML = `${temperature}°C`;
   description.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
@@ -40,41 +28,27 @@ function showTemperature(response) {
 }
 
 function currentLocationTemperature() {
-  navigator.geolocation.getCurrentPosition(locationSearch);
+  navigator.geolocation.getCurrentPosition(currentLocationSearch);
 }
 
-function citySearch(event) {
-  event.preventDefault();
-  let h1 = document.querySelector("h1");
-  let citySearchInput = document.querySelector("#input-city");
-  h1.innerHTML = citySearchInput.value;
-  let city = citySearchInput.value;
+function search(city) {
   let apiKey = "c99a8d499a1f61b742240fa4afade60a";
   let apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
 }
 
-function showPortoTemperature(event) {
-  event.preventDefault();
-  let h1 = document.querySelector("h1");
-  let city = "Porto";
-  h1.innerHTML = city;
-  let apiKey = "c99a8d499a1f61b742240fa4afade60a";
-  let apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
+function handleSubmit(event) {
+  event.preventDefault;
+  let searchInput = document.querySelector("#input-city");
+  search(searchInput.value);
 }
 
-function locationSearch(position) {
+function currentLocationSearch(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "c99a8d499a1f61b742240fa4afade60a";
   let apiUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showLocationCity);
-  function showLocationCity(response) {
-    let h1 = document.querySelector("h1");
-    h1.innerHTML = response.data.name;
-    showTemperature(response);
-  }
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
 }
 
 function formatDate(timestamp) {
@@ -141,3 +115,17 @@ function tempConvertFahrenheit(event) {
     Math.round((fahrenheitConvertedTemp.value, 14) / 5) * 9 + 32;
   mainTempScale.innerHTML = "°F";
 }
+
+search("Porto");
+
+let searchButton = document.querySelector("#btn-search");
+searchButton.addEventListener("click", handleSubmit);
+
+let currentLocationButton = document.querySelector("#btn-current");
+currentLocationButton.addEventListener("click", currentLocationTemperature);
+
+let fahrenheitConvert = document.querySelector("#fahrenheit");
+fahrenheitConvert.addEventListener("click", tempConvertFahrenheit);
+
+let celsiusConvert = document.querySelector("#celsius");
+celsiusConvert.addEventListener("click", tempConvertCelsius);
