@@ -1,3 +1,41 @@
+window.addEventListener("load", showPortoTemperature);
+
+let searchButton = document.querySelector("#btn-search");
+searchButton.addEventListener("click", citySearch);
+
+let currentLocationButton = document.querySelector("#btn-current");
+currentLocationButton.addEventListener("click", currentLocationTemperature);
+
+let fahrenheitConvert = document.querySelector("#fahrenheit");
+fahrenheitConvert.addEventListener("click", tempConvertFahrenheit);
+
+let celsiusConvert = document.querySelector("#celsius");
+celsiusConvert.addEventListener("click", tempConvertCelsius);
+
+function showTemperature(response) {
+  let temperature = Math.round(response.data.main.temp);
+  let showTemp = document.querySelector("#main-temp-value");
+  let description = document.querySelector("#weather-description");
+  let humidity = document.querySelector("#humidity");
+  let wind = document.querySelector("#wind");
+  let high = document.querySelector("#main-high");
+  let low = document.querySelector("#main-low");
+  let date = document.querySelector("#current-date");
+  let time = document.querySelector("#current-time");
+  showTemp.innerHTML = `${temperature}°C`;
+  description.innerHTML = response.data.weather[0].description;
+  humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
+  wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
+  high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
+  low.innerHTML = `Low: ${Math.round(response.data.main.temp_min)}°C`;
+  date.innerHTML = formatDate(response.data.dt * 1000);
+  time.innerHTML = formatTime(response.data.dt * 1000);
+}
+
+function currentLocationTemperature() {
+  navigator.geolocation.getCurrentPosition(locationSearch);
+}
+
 function citySearch(event) {
   event.preventDefault();
   let h1 = document.querySelector("h1");
@@ -19,7 +57,18 @@ function showPortoTemperature(event) {
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
 }
 
-window.addEventListener("load", showPortoTemperature);
+function locationSearch(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiKey = "c99a8d499a1f61b742240fa4afade60a";
+  let apiUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showLocationCity);
+  function showLocationCity(response) {
+    let h1 = document.querySelector("h1");
+    h1.innerHTML = response.data.name;
+    showTemperature(response);
+  }
+}
 
 function formatDate(timestamp) {
   let currentDate = new Date(timestamp);
@@ -67,63 +116,14 @@ function formatTime(timestamp) {
   return `${hours}:${minutes}`;
 }
 
-function showTemperature(response) {
-  let temperature = Math.round(response.data.main.temp);
-  let showTemp = document.querySelector("#main-temp-value");
-  let description = document.querySelector("#weather-description");
-  let humidity = document.querySelector("#humidity");
-  let wind = document.querySelector("#wind");
-  let high = document.querySelector("#main-high");
-  let low = document.querySelector("#main-low");
-  let date = document.querySelector("#current-date");
-  let time = document.querySelector("#current-time");
-  showTemp.innerHTML = `${temperature}°C`;
-  description.innerHTML = response.data.weather[0].description;
-  humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
-  wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
-  high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
-  low.innerHTML = `Low: ${Math.round(response.data.main.temp_min)}°C`;
-  date.innerHTML = formatDate(response.data.dt * 1000);
-  time.innerHTML = formatTime(response.data.dt * 1000);
+function tempConvertCelsius(event) {
+  event.preventDefault();
+  let mainTempValue = document.querySelector("#main-temp-value");
+  let celsiusConvertedTemp = document.querySelector("#main-temp-value");
+  let mainTempScale = document.querySelector("#main-temp-scale");
+  mainTempValue.innerHTML = Math.round(celsiusConvertedTemp.value, 14);
+  mainTempScale.innerHTML = "°C";
 }
-
-let searchButton = document.querySelector("#btn-search");
-searchButton.addEventListener("click", citySearch);
-
-function currentLocationTemperature() {
-  function locationSearch(position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let apiKey = "c99a8d499a1f61b742240fa4afade60a";
-    let apiUrl = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-    axios.get(`${apiUrl}&appid=${apiKey}`).then(showLocationTemperature);
-  }
-
-  function showLocationTemperature(response) {
-    let temperature = Math.round(response.data.main.temp);
-    let showTemp = document.querySelector("#main-temp-value");
-    let h1 = document.querySelector("h1");
-    let description = document.querySelector("#weather-description");
-    let humidity = document.querySelector("#humidity");
-    let wind = document.querySelector("#wind");
-    let high = document.querySelector("#main-high");
-    let low = document.querySelector("#main-low");
-    let date = document.querySelector("#current-date");
-    let time = document.querySelector("#current-time");
-    showTemp.innerHTML = `${temperature}°C`;
-    h1.innerHTML = response.data.name;
-    description.innerHTML = response.data.weather[0].main;
-    humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
-    wind.innerHTML = `Wind: ${response.data.wind.speed} km/h`;
-    high.innerHTML = `High: ${Math.round(response.data.main.temp_max)}°C`;
-    low.innerHTML = `Low: ${Math.round(response.data.main.temp_min)}°C`;
-    date.innerHTML = formatDate(response.data.dt * 1000);
-    time.innerHTML = formatTime(response.data.dt * 1000);
-  }
-  navigator.geolocation.getCurrentPosition(locationSearch);
-}
-let currentLocationButton = document.querySelector("#btn-current");
-currentLocationButton.addEventListener("click", currentLocationTemperature);
 
 function tempConvertFahrenheit(event) {
   event.preventDefault();
@@ -134,18 +134,3 @@ function tempConvertFahrenheit(event) {
     Math.round((fahrenheitConvertedTemp.value, 14) / 5) * 9 + 32;
   mainTempScale.innerHTML = "°F";
 }
-
-let fahrenheitConvert = document.querySelector("#fahrenheit");
-fahrenheitConvert.addEventListener("click", tempConvertFahrenheit);
-
-function tempConvertCelsius(event) {
-  event.preventDefault();
-  let mainTempValue = document.querySelector("#main-temp-value");
-  let celsiusConvertedTemp = document.querySelector("#main-temp-value");
-  let mainTempScale = document.querySelector("#main-temp-scale");
-  mainTempValue.innerHTML = Math.round(celsiusConvertedTemp.value, 14);
-  mainTempScale.innerHTML = "°C";
-}
-
-let celsiusConvert = document.querySelector("#celsius");
-celsiusConvert.addEventListener("click", tempConvertCelsius);
