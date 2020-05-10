@@ -22,6 +22,8 @@ function showTemperature(response) {
   let low = document.querySelector("#main-low");
   let date = document.querySelector("#current-date");
   let time = document.querySelector("#current-time");
+  let icon = document.querySelector("#icon");
+
   showTemp.innerHTML = `${temperature}°C`;
   description.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = `Humidity: ${response.data.main.humidity}%`;
@@ -30,6 +32,10 @@ function showTemperature(response) {
   low.innerHTML = `Low: ${Math.round(response.data.main.temp_min)}°C`;
   date.innerHTML = formatDate(response.data.dt * 1000);
   time.innerHTML = formatTime(response.data.dt * 1000);
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
 function currentLocationTemperature() {

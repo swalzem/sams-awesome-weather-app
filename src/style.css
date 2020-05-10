@@ -66,10 +66,10 @@
   margin: 1rem 0;
 }
 
-.main-weather-overview i {
-  font-size: 70px;
-  display: block;
+.main-weather-overview img {
   margin: 0 auto;
+  width: 200%;
+  height: 200%;
 }
 
 .form-control {
