@@ -50,13 +50,13 @@ function formatHours(timestamp) {
 }
 
 function displayForecast(response) {
-  let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = null;
+  let hourlyForecast = document.querySelector("#forecast");
+  hourlyForecast.innerHTML = null;
   let forecast = null;
 
-  for (let index = 0; index < 6; index++) {
+  for (let index = 0; index < 6; index += 1) {
     forecast = response.data.list[index];
-    forecastElement.innerHTML += `
+    hourlyForecast.innerHTML += `
         <div class="col-2">
           <div class="row justify-content-center forecast-day-of-the-week">
             <h3>${formatHours(forecast.dt * 1000)}</h3>
@@ -67,7 +67,7 @@ function displayForecast(response) {
               src="http://openweathermap.org/img/wn/${
                 forecast.weather[0].icon
               }@2x.png"
-              alt=""
+              alt="${forecast.weather[0].description}"
             />
           </div>
           <div class="row justify-content-center forecast-high">
